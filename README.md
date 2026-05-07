@@ -28,7 +28,7 @@
 ## 💹 Supported Currencies
 
 | Symbol | Currency       | Flag |
-|--------|----------------|------|
+| ------ | -------------- | ---- |
 | USD    | US Dollar      | 🇺🇸   |
 | EUR    | Euro           | 🇪🇺   |
 | BRL    | Brazilian Real | 🇧🇷   |
