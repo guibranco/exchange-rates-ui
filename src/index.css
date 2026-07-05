@@ -100,6 +100,26 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    min-height: 100vh;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(circle at 15% 15%, hsl(262 83% 66% / 0.22), transparent 45%),
+      radial-gradient(circle at 85% 10%, hsl(199 89% 61% / 0.2), transparent 45%),
+      radial-gradient(circle at 50% 100%, hsl(330 81% 65% / 0.16), transparent 55%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+  .dark body {
+    background-image:
+      radial-gradient(circle at 15% 15%, hsl(262 83% 66% / 0.28), transparent 45%),
+      radial-gradient(circle at 85% 10%, hsl(199 89% 61% / 0.22), transparent 45%),
+      radial-gradient(circle at 50% 100%, hsl(330 81% 65% / 0.18), transparent 55%);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply relative overflow-hidden rounded-2xl border border-white/40 bg-white/50 shadow-xl shadow-black/5 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-black/40;
   }
 }
