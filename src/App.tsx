@@ -25,7 +25,7 @@ function App() {
       const response = await getMockExchangeRates();
       setData(response);
       setCountdown(AUTO_REFRESH_INTERVAL);
-    } catch (err) {
+    } catch {
       setError('Failed to fetch exchange rates');
     } finally {
       setIsLoading(false);
@@ -74,6 +74,7 @@ function App() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial data fetch on mount; fetchRates is also used directly by the manual refresh button
     fetchRates();
     startCountdown();
 
