@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { AlertTriangle, Clock } from 'lucide-react';
 import { ExchangeRatesResponse } from './types';
 import { getMockExchangeRates } from './data/mockData';
 import Header from './components/Header';
@@ -88,28 +89,33 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
-        <Header 
-          onRefresh={fetchRates} 
-          isLoading={isLoading} 
+      <div className="min-h-screen">
+        <Header
+          onRefresh={fetchRates}
+          isLoading={isLoading}
           isPaused={isPaused}
           onTogglePause={handleTogglePause}
           countdown={countdown}
         />
-        
+
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {error && (
-            <div className="rounded-lg border border-destructive p-4 mb-8 text-destructive">
-              <p className="text-sm">{error}</p>
+            <div className="glass-panel mb-8 flex items-start gap-3 border-l-4 border-l-destructive p-4">
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" />
+              <p className="text-sm text-destructive">{error}</p>
             </div>
           )}
 
           {isLoading && !data ? (
-            <div className="flex items-center justify-center min-h-[400px]">
-              <div className="text-muted-foreground animate-pulse">Loading rates...</div>
+            <div className="flex min-h-[400px] flex-col items-center justify-center gap-4">
+              <div className="relative h-14 w-14">
+                <div className="absolute inset-0 rounded-full border-4 border-fuchsia-500/15" />
+                <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-fuchsia-500" />
+              </div>
+              <p className="animate-pulse text-sm text-muted-foreground">Loading rates...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid animate-in fade-in slide-in-from-bottom-4 grid-cols-1 gap-6 duration-500 md:grid-cols-2 lg:grid-cols-4">
               {data?.rates.map((rate) => (
                 <CurrencyCard key={rate.from} data={rate} />
               ))}
@@ -117,8 +123,11 @@ function App() {
           )}
 
           {data && (
-            <div className="mt-8 text-center text-sm text-muted-foreground">
-              Last updated: {new Date(data.timestamp).toLocaleString()}
+            <div className="mt-10 flex justify-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/50 px-4 py-1.5 text-xs text-muted-foreground shadow-sm dark:border-white/10 dark:bg-white/5">
+                <Clock className="h-3.5 w-3.5" />
+                Last updated: {new Date(data.timestamp).toLocaleString()}
+              </span>
             </div>
           )}
         </main>
